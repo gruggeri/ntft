@@ -1,0 +1,15 @@
+Package: ntft
+Type: Package
+Title: Ain't nobody got time for that
+Version: 0.1.0
+Author: Xavier Adam
+Maintainer: Xavier Adam <xavier.adam@pm.me>
+Description: Helpers to save time in course production.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    magick,
+    showtext,
+    sysfonts
+RoxygenNote: 6.1.1
