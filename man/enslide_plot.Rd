@@ -4,10 +4,11 @@
 \alias{enslide_plot}
 \title{Create a slide from a chart}
 \usage{
-enslide_plot(plot, slide_caption, plot_res = 160)
+enslide_plot(plot, slide_caption, plot_res = 160, plot_pct_width = 1,
+  plot_align = "center")
 }
 \arguments{
-\item{plot_res}{}
+\item{plot_align}{}
 }
 \description{
 Create a slide from a chart

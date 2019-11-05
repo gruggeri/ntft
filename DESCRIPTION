@@ -11,5 +11,6 @@ LazyData: true
 Imports: 
     magick,
     showtext,
-    sysfonts
+    sysfonts,
+    stringi
 RoxygenNote: 6.1.1
