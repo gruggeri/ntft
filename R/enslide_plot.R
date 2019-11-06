@@ -4,17 +4,18 @@ setup_fonts <- function() {
                      regular = "slidecaptionbold.ttf")
 }
 
-caption_template <- function(slide, caption, x_pos, y_pos) {
+caption_template <- function(slide, caption, x_pos, y_pos, adj = 0.5, cex = 3.7, alpha = 1) {
   slide <- magick::image_draw(slide)
   showtext::showtext_begin()
   graphics::text(
     x = x_pos,
     y = y_pos,
     labels = caption,
-    col = "#5E5E5E",
+    #col = "#5E5E5E",
+    col = rgb(76, 76, 76, alpha=alpha*255, maxColorValue = 255),
     family = "helveticaneue",
-    cex = 3.7,
-    adj = 0.5
+    cex = cex,
+    adj = adj
   )
   showtext::showtext_end()
   grDevices::dev.off()
@@ -119,6 +120,54 @@ enslide_plot <- function(plot,
                                  fig,
                                  offset = offset_plot)
   out
+}
+
+write_list <- function(slide, list, font_pct_size, highlight) {
+  items <- stringi::stri_trim(list) %>%
+    stringi::stri_split(regex = "\n?([:digit:]\\.) ") %>%
+    unlist() %>%
+    stringi::stri_subset(regex = "^$", negate=TRUE)
+
+  items_n_lines <- stringi::stri_count(items, regex= "\n") + 1
+  line_height <- 55 * font_pct_size
+  font_size   <- 3.7 * font_pct_size
+  inter_item_height <- line_height * 0.5
+  items_height <- items_n_lines * line_height + inter_item_height
+  slide_height <- magick::image_info(slide)$height
+  #browser()
+  start_y_pos <- (slide_height / 2) - (sum(items_height) / 2)
+  for(i in 1:length(items_height)) {
+    slide <- caption_template(slide,
+                              caption = paste0(i, " "),
+                              x_pos = 300,
+                              y_pos = start_y_pos,
+                              adj = c(1,1),
+                              cex = font_size * 1.5,
+                              alpha = ifelse(i == highlight || is.null(highlight), 1, .2))
+    slide <- caption_template(slide,
+                              caption = items[i],
+                              x_pos = 300,
+                              y_pos = start_y_pos,
+                              adj = c(0,1),
+                              cex = font_size,
+                              alpha = ifelse(i == highlight || is.null(highlight), 1, .2))
+    #browser()
+    start_y_pos <- start_y_pos + items_height[i]
+  }
+  slide
+}
+
+
+
+enslide_list <- function(list,
+                         highlight,
+                         slide_caption,
+                         font_pct_size) {
+  setup_fonts()
+  margins <- list(top=100, right=195, bottom=170, left=115)
+  template <- prepare_template(caption = slide_caption)
+  slide <- write_list(template$obj, list, font_pct_size, highlight)
+  slide
 }
 
 
