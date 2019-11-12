@@ -2,6 +2,11 @@ setup_fonts <- function() {
   sysfonts::font_paths(system.file("", package = "ntft"))
   sysfonts::font_add(family = "helveticaneue",
                      regular = "slidecaptionbold.ttf")
+  sysfonts::font_add(family = "merriserif",
+                     regular = "Merriweather-Regular.ttf",
+                     bold = "MerriweatherSans-ExtraBold.ttf",
+                     italic = "Merriweather-Italic.ttf",
+                     bolditalic = "FiraCode-Bold.ttf")
 }
 
 
@@ -12,7 +17,8 @@ caption_template <-
            y_pos,
            adj = 0.5,
            cex = 3.7,
-           alpha = 1) {
+           alpha = 1,
+           font_family = "helveticaneue") {
     slide <- magick::image_draw(slide)
     showtext::showtext_begin()
     graphics::text(
@@ -20,7 +26,7 @@ caption_template <-
       y = y_pos,
       labels = caption,
       col = rgb(76, 76, 76, alpha = alpha * 255, maxColorValue = 255),
-      family = "helveticaneue",
+      family = font_family,
       cex = cex,
       adj = adj
     )
@@ -29,8 +35,8 @@ caption_template <-
     slide
   }
 
-prepare_template <- function(caption) {
-  slide <- magick::image_read(system.file("slide_template.png", package = "ntft"))
+prepare_template <- function(caption, template_path = "slide_template.png") {
+  slide <- magick::image_read(system.file(template_path, package = "ntft"))
 
   slide_coord <- list(
     width  = magick::image_info(slide)$width,
@@ -216,5 +222,29 @@ enslide_list <- function(list,
   )
   template <- prepare_template(caption = slide_caption)
   slide <- write_list(template$obj, list, font_pct_size, highlight)
+  slide
+}
+
+
+
+gk_slide <- function(text, font_pct_size = 1) {
+  setup_fonts()
+  margins <- list(
+    top = 100,
+    right = 195,
+    bottom = 170,
+    left = 115
+  )
+  template <- prepare_template(caption = "",
+                               template_path = "slide_template_general_k.png")
+  slide <- caption_template(
+    template$obj,
+    caption = text,
+    x_pos = template$coord$width - margins$right,
+    y_pos = template$coord$center_height,
+    cex = 3.7 * font_pct_size,
+    font_family = "merriserif",
+    adj = c(1,0)
+  )
   slide
 }
