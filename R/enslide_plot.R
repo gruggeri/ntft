@@ -209,6 +209,17 @@ write_list <- function(slide, list, font_pct_size, highlight) {
 
 
 
+#' Generate a slide with a list of items
+#'
+#' @param list
+#' @param highlight
+#' @param slide_caption
+#' @param font_pct_size
+#'
+#' @return
+#' @export
+#'
+#' @examples
 enslide_list <- function(list,
                          highlight,
                          slide_caption,
@@ -227,6 +238,15 @@ enslide_list <- function(list,
 
 
 
+#' Generate a General Knowledge slide
+#'
+#' @param text
+#' @param font_pct_size
+#'
+#' @return
+#' @export
+#'
+#' @examples
 gk_slide <- function(text, font_pct_size = 1) {
   setup_fonts()
   margins <- list(
