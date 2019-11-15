@@ -1,7 +1,7 @@
 Package: ntft
 Type: Package
 Title: Ain't nobody got time for that
-Version: 0.3.0
+Version: 0.4.0
 Author: Xavier Adam
 Maintainer: Xavier Adam <xavier.adam@pm.me>
 Description: Helpers to save time in course production.

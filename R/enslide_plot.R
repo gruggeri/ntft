@@ -7,8 +7,57 @@ setup_fonts <- function() {
                      bold = "MerriweatherSans-ExtraBold.ttf",
                      italic = "Merriweather-Italic.ttf",
                      bolditalic = "FiraCode-Bold.ttf")
+  sysfonts::font_add(family = "merrisans",
+                     regular = "MerriweatherSans-Regular.ttf",
+                     bold = "Merriweather-Black.ttf",
+                     italic = "MerriweatherSans-Italic.ttf",
+                     bolditalic = "FiraCode-Bold.ttf")
 }
 
+rep_sym_w_fun <- function(sentence, pattern) {
+  md_positions <- str_locate_all(sentence, pattern$rgx)[[1]]
+
+  if(nrow(md_positions) > 0) {
+    for(i in 1:(nrow(md_positions)/2)) {
+      md_positions <- str_locate_all(sentence, pattern$rgx)[[1]]
+      str_sub(sentence, md_positions[1,1], md_positions[1,2]) <- paste0(pattern$fun, "(")
+      shift_pos <- nchar(pattern$fun) + 1 - nchar(pattern$md)
+      str_sub(sentence,
+              md_positions[2,1] + shift_pos,
+              md_positions[2,2] + shift_pos) <- ")"
+    }
+  }
+
+  sentence
+}
+
+md_to_exp <- function(sentence) {
+  md_bold <- list(
+    md = "**",
+    rgx = "\\*\\*",
+    fun = "bold"
+  )
+  md_italic <- list(
+    md = "*",
+    rgx = "\\*",
+    fun = "italic"
+  )
+  md_code <- list(
+    md = "`",
+    rgx = "`",
+    fun = "bolditalic"
+  )
+
+  sentence %>%
+    rep_sym_w_fun(md_bold) %>%
+    rep_sym_w_fun(md_italic) %>%
+    rep_sym_w_fun(md_code) %>%
+    str_replace_all("bold\\((.*?)\\)", "', bold('\\1\'),'") %>%
+    str_replace_all("bolditalic\\((.*?)\\)", "', bolditalic('\\1\'),'") %>%
+    str_replace_all("(?<!bold)italic\\((.*?)\\)", "', italic('\\1\'),'") %>% {
+      str_glue("expression(paste('{.}'))")
+    }
+}
 
 caption_template <-
   function(slide,
@@ -20,16 +69,37 @@ caption_template <-
            alpha = 1,
            font_family = "helveticaneue") {
     slide <- magick::image_draw(slide)
+    rgb_grey_text <- rgb(76, 76, 76, alpha = alpha * 255, maxColorValue = 255)
+    rgb_blue_code <- rgb(6, 58, 109, alpha = alpha * 255, maxColorValue = 255)
     showtext::showtext_begin()
+
+    exp_label <- md_to_exp(caption)
+    exp_label_non_code <- str_replace_all(exp_label,
+                                          "bolditalic\\(.*?\\)",
+                                          "phantom(\\0)")
+
     graphics::text(
       x = x_pos,
       y = y_pos,
-      labels = caption,
-      col = rgb(76, 76, 76, alpha = alpha * 255, maxColorValue = 255),
+      labels = eval(parse(text = exp_label)),
+      col = ifelse(alpha == 1, rgb_blue_code, rgb_grey_text),
       family = font_family,
       cex = cex,
       adj = adj
     )
+
+
+    if (alpha == 1) {
+      graphics::text(
+        x = x_pos,
+        y = y_pos,
+        labels = eval(parse(text = exp_label_non_code)),
+        col = rgb_grey_text,
+        family = font_family,
+        cex = cex,
+        adj = adj
+      )
+    }
     showtext::showtext_end()
     grDevices::dev.off()
     slide
@@ -152,30 +222,45 @@ enslide_plot <- function(plot,
   out
 }
 
-write_list <- function(slide, list, font_pct_size, highlight) {
-  items <- stringi::stri_trim(list) %>%
+split_blist_items <- function(bullet_md_list) {
+  stringi::stri_trim(bullet_md_list) %>%
     stringi::stri_split(regex = "\n?([:digit:]\\.) ") %>%
     unlist() %>%
     stringi::stri_subset(regex = "^$", negate = TRUE)
+}
 
-  items_n_lines <- stringi::stri_count(items, regex = "\n") + 1
-  line_height <- 55 * font_pct_size
+split_on_line_break <- function(text) {
+  stringi::stri_split(text, regex = "\n")
+}
+
+write_list <- function(slide, list, font_pct_size, highlight, font_family = "merriserif") {
+  items <- split_blist_items(list)
+  sub_items <- sapply(items, split_on_line_break)
+  items_n_lines <- sapply(sub_items, length)
+
+  base_line_height <- switch(font_family,
+                             helveticaneue = 55,
+                             merriserif = 65,
+                             merrisans = 65)
+
+  line_height <- base_line_height * font_pct_size
   font_size   <- 3.7 * font_pct_size
   inter_item_height <- line_height * 0.5
   items_height <- items_n_lines * line_height + inter_item_height
   slide_height <- magick::image_info(slide)$height
-  start_y_pos <- (slide_height / 2) - (sum(items_height) / 2)
+  start_y_pos_item <- (slide_height / 2) - (sum(items_height) / 2)
 
-  for (i in 1:length(items_height)) {
+  for (i in 1:length(items)) {
     if (i == 1) {
-      # Write text
+      # Write title
       slide <- caption_template(
         slide,
         caption = items[i],
         x_pos = magick::image_info(slide)$width / 2,
-        y_pos = start_y_pos,
+        y_pos = start_y_pos_item,
         cex = font_size * 1.5,
-        adj = 0.5
+        adj = 0.5,
+        font_family = "helveticaneue"
       )
     } else {
       # Write number
@@ -183,26 +268,33 @@ write_list <- function(slide, list, font_pct_size, highlight) {
         slide,
         caption = paste0(i-1, " "),
         x_pos = 300,
-        y_pos = start_y_pos,
+        y_pos = start_y_pos_item,
         adj = c(1, 1),
         cex = font_size * 1.5,
+        font_family = font_family,
         alpha = ifelse(i == (highlight + 1) ||
                          is.null(highlight), 1, .2)
       )
 
-      # Write text
-      slide <- caption_template(
-        slide,
-        caption = items[i],
-        x_pos = 300,
-        y_pos = start_y_pos,
-        adj = c(0, 1),
-        cex = font_size,
-        alpha = ifelse(i == (highlight + 1) ||
-                         is.null(highlight), 1, .2)
-      )
+      start_y_pos_sub_item <- start_y_pos_item
+      for (j in 1:length(sub_items[[i]])) {
+        # Write text line by line
+        slide <- caption_template(
+          slide,
+          caption = sub_items[[i]][j],
+          x_pos = 300,
+          y_pos = start_y_pos_sub_item,
+          adj = c(0, 1),
+          cex = font_size,
+          font_family = font_family,
+          alpha = ifelse(i == (highlight + 1) ||
+                           is.null(highlight), 1, .2)
+        )
+        start_y_pos_sub_item <- start_y_pos_sub_item + line_height
+      }
+
     }
-    start_y_pos <- start_y_pos + items_height[i]
+    start_y_pos_item <- start_y_pos_item + items_height[i]
   }
   slide
 }
@@ -223,7 +315,8 @@ write_list <- function(slide, list, font_pct_size, highlight) {
 enslide_list <- function(list,
                          highlight,
                          slide_caption,
-                         font_pct_size) {
+                         font_pct_size,
+                         font_family = "merriserif") {
   setup_fonts()
   margins <- list(
     top = 100,
@@ -232,7 +325,7 @@ enslide_list <- function(list,
     left = 115
   )
   template <- prepare_template(caption = slide_caption)
-  slide <- write_list(template$obj, list, font_pct_size, highlight)
+  slide <- write_list(template$obj, list, font_pct_size, highlight, font_family)
   slide
 }
 
@@ -257,14 +350,20 @@ gk_slide <- function(text, font_pct_size = 1) {
   )
   template <- prepare_template(caption = "",
                                template_path = "slide_template_general_k.png")
-  slide <- caption_template(
-    template$obj,
-    caption = text,
-    x_pos = template$coord$width - margins$right,
-    y_pos = template$coord$center_height,
-    cex = 3.7 * font_pct_size,
-    font_family = "merriserif",
-    adj = c(1,0)
-  )
+
+  text_lines <- sapply(text, split_on_line_break)[[1]]
+  slide <- template$obj
+  start_y_pos <- template$coord$center_height - (length(text_lines) * 65 * font_pct_size / 2)
+  for(i in 1:length(text_lines)) {
+    slide <- caption_template(
+      slide,
+      caption = text_lines[i],
+      x_pos = template$coord$width - margins$right,
+      y_pos = start_y_pos + (i - 1) * 65 * font_pct_size,
+      cex = 3.7 * font_pct_size,
+      font_family = "merriserif",
+      adj = c(1,0)
+    )
+  }
   slide
 }
