@@ -68,9 +68,12 @@ caption_template <-
            cex = 3.7,
            alpha = 1,
            font_family = "helveticaneue") {
-    slide <- magick::image_draw(slide)
-    rgb_grey_text <- rgb(76, 76, 76, alpha = alpha * 255, maxColorValue = 255)
+    # Set text colors
+    rgb_grey_prose <- rgb(76, 76, 76, alpha = alpha * 255, maxColorValue = 255)
     rgb_blue_code <- rgb(6, 58, 109, alpha = alpha * 255, maxColorValue = 255)
+
+    slide <- magick::image_draw(slide)
+
     showtext::showtext_begin()
 
     exp_label <- md_to_exp(caption)
@@ -82,7 +85,7 @@ caption_template <-
       x = x_pos,
       y = y_pos,
       labels = eval(parse(text = exp_label)),
-      col = ifelse(alpha == 1, rgb_blue_code, rgb_grey_text),
+      col = ifelse(alpha == 1, rgb_blue_code, rgb_grey_prose),
       family = font_family,
       cex = cex,
       adj = adj
@@ -94,7 +97,7 @@ caption_template <-
         x = x_pos,
         y = y_pos,
         labels = eval(parse(text = exp_label_non_code)),
-        col = rgb_grey_text,
+        col = rgb_grey_prose,
         family = font_family,
         cex = cex,
         adj = adj
@@ -352,6 +355,7 @@ gk_slide <- function(text, font_pct_size = 1) {
                                template_path = "slide_template_general_k.png")
 
   text_lines <- sapply(text, split_on_line_break)[[1]]
+
   slide <- template$obj
   start_y_pos <- template$coord$center_height - (length(text_lines) * 65 * font_pct_size / 2)
   for(i in 1:length(text_lines)) {
