@@ -44,7 +44,7 @@ prepare_fig <-
       slide$coord$height - margins$top - margins$bottom
     plot_width <- plot_max_width * plot_pct_width
 
-    plot_pct_height <- 1 # Currently cst
+    plot_pct_height <- 1 # Currently not changeable by user
     slide_caption_line_length <-
       stringi::stri_count_regex(slide_caption, "\n")
 
