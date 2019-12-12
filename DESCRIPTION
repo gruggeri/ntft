@@ -12,5 +12,12 @@ Imports:
     magick,
     showtext,
     sysfonts,
-    stringi
-RoxygenNote: 6.1.1
+    stringi,
+    tibble,
+    purrr,
+    gt,
+    magrittr,
+    stringr
+RoxygenNote: 7.0.2
+Suggests: 
+    testthat (>= 2.1.0)

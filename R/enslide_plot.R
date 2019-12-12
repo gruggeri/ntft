@@ -55,11 +55,19 @@ prepare_fig <-
         (plot_max_height * plot_pct_height) - (20 * (slide_caption_line_length + 1))
     }
 
-    fig <- magick::image_graph(width = plot_width,
-                               height = plot_height,
-                               res = plot_res)
-    print(plot)
-    grDevices::dev.off()
+    if("ggplot" %in% class(plot)) {
+      fig <- magick::image_graph(width = plot_width,
+                                 height = plot_height,
+                                 res = plot_res)
+      print(plot)
+      grDevices::dev.off()
+    } else if("gt_tbl" %in% class(plot)) {
+      gt::gtsave(plot, "temp_gt.png", zoom = 2)
+      fig <- magick::image_read("temp_gt.png") %>%
+        magick::image_scale(magick::geometry_size_pixels(width = NULL, height = plot_height,
+                                                 preserve_aspect = TRUE))
+    }
+
     fig <- magick::image_shadow(
       fig,
       color = "black",
