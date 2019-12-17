@@ -21,10 +21,10 @@ caption_template <- function(slide, caption, x_pos, y_pos) {
   slide
 }
 
-prepare_template <- function(caption) {
+prepare_template <- function(caption, template_path = "slide_template.png") {
 
   slide <- magick::image_read(
-    system.file("slide_template.png", package = "ntft"))
+    system.file(template_path, package = "ntft"))
 
   slide_coord <- list(
     width  = magick::image_info(slide)$width,
