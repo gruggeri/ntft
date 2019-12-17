@@ -28,12 +28,12 @@ md_sym <- list(
 test_that("parse_token_syntax find patterns", {
   expect_error(parse_token_syntax("Hello **bla** test*r", md_sym))
   expect_equal(parse_token_syntax("Hello bla testr", md_sym), character(0))
-  expect_equal(parse_token_syntax("Hello **bla** testr *bla*, §test§ zui **hope**", md_sym),
+  expect_equal(parse_token_syntax("Hello **bla()** testr *bla*, §test()§ zui **hope**", md_sym),
                data.frame(
                  name = c("plain", "md_bold", "plain", "md_italic",
                           "plain", "md_underline", "plain", "md_bold", "plain"),
-                 content = c("Hello ", "bla",
-                             " testr ", "bla", ", ", "test", " zui ", "hope", ""),
+                 content = c("Hello ", "bla()",
+                             " testr ", "bla", ", ", "test()", " zui ", "hope", ""),
                  stringsAsFactors = FALSE
                ))
   expect_equal(parse_token_syntax("Hello **bla** testr **bla**, §test§ zui **hope**", md_sym),
