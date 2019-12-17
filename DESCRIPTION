@@ -1,7 +1,7 @@
 Package: ntft
 Type: Package
 Title: Ain't nobody got time for that
-Version: 0.2.0
+Version: 0.4.0
 Author: Xavier Adam
 Maintainer: Xavier Adam <xavier.adam@pm.me>
 Description: Helpers to save time in course production.
@@ -12,5 +12,12 @@ Imports:
     magick,
     showtext,
     sysfonts,
-    stringi
-RoxygenNote: 6.1.1
+    stringi,
+    tibble,
+    purrr,
+    gt,
+    magrittr,
+    stringr
+RoxygenNote: 7.0.2
+Suggests: 
+    testthat (>= 2.1.0)
