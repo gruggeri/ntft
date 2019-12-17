@@ -24,10 +24,17 @@ prepare_template <- function(caption, template_path = "slide_template.png") {
   slide_coord$center_width  <- slide_coord$width / 2
   slide_coord$center_height <- slide_coord$height / 2
 
-  slide <- caption_template(slide,
-                            caption,
-                            x_pos = slide_coord$center_width,
-                            y_pos = slide_coord$height - 100)
+  caption_lines <- strsplit(caption, "\n")[[1]]
+  bottom_margin <- 100
+  line_height <- 55
+  for(i in 1:length(caption_lines)) {
+    y_pos_line <- slide_coord$height - bottom_margin - (line_height * (length(caption_lines) - i))
+    slide <- caption_template(slide,
+                              caption = caption_lines[i],
+                              x_pos = slide_coord$center_width,
+                              y_pos = y_pos_line)
+  }
+
   list(obj = slide,
        coord = slide_coord)
 }
@@ -46,13 +53,14 @@ prepare_fig <-
 
     plot_pct_height <- 1 # Currently not changeable by user
     slide_caption_line_length <-
-      stringi::stri_count_regex(slide_caption, "\n")
+      stringi::stri_count_regex(slide_caption, pattern = "\n")
+    caption_line_height <- 55
 
     if (length(slide_caption_line_length) == 0) {
       plot_height <- plot_max_height * plot_pct_height
     } else {
       plot_height <-
-        (plot_max_height * plot_pct_height) - (20 * (slide_caption_line_length + 1))
+        (plot_max_height * plot_pct_height) - (caption_line_height * (slide_caption_line_length + 1))
     }
 
     if("ggplot" %in% class(plot)) {
@@ -110,11 +118,12 @@ enslide_plot <- function(plot,
   margins <- list(
     top = 100,
     right = 195,
-    bottom = 170,
+    bottom = 120,
     left = 115
   )
 
   slide <- prepare_template(caption = slide_caption)
+
   fig <- prepare_fig(
     plot = plot,
     slide = slide,
@@ -170,43 +179,45 @@ write_list <- function(slide, list, font_pct_size, highlight, font_family = "mer
   for (i in 1:length(items)) {
     if (i == 1) {
       # Write title
-      slide <- caption_template(
+      slide <- write_on_slide(
         slide,
-        caption = items[i],
+        input_text = items[i],
         x_pos = magick::image_info(slide)$width / 2,
         y_pos = start_y_pos_item,
-        cex = font_size * 1.5,
         adj = 0.5,
-        font_family = "helveticaneue"
+        cex = font_size * 1.5,
+        alpha = 1,
+        prose_family = font_family
       )
     } else {
       # Write number
-      slide <- caption_template(
+      slide <- write_on_slide(
         slide,
-        caption = paste0(i-1, " "),
+        input_text = paste0(i-1, " "),
         x_pos = 300,
         y_pos = start_y_pos_item,
         adj = c(1, 1),
         cex = font_size * 1.5,
-        font_family = font_family,
         alpha = ifelse(i == (highlight + 1) ||
-                         is.null(highlight), 1, .2)
+                         is.null(highlight), 1, .2),
+        prose_family = font_family
       )
 
       start_y_pos_sub_item <- start_y_pos_item
       for (j in 1:length(sub_items[[i]])) {
         # Write text line by line
-        slide <- caption_template(
+        slide <- write_on_slide(
           slide,
-          caption = sub_items[[i]][j],
+          input_text = sub_items[[i]][j],
           x_pos = 300,
           y_pos = start_y_pos_sub_item,
           adj = c(0, 1),
           cex = font_size,
-          font_family = font_family,
           alpha = ifelse(i == (highlight + 1) ||
-                           is.null(highlight), 1, .2)
+                           is.null(highlight), 1, .2),
+          prose_family = font_family
         )
+
         start_y_pos_sub_item <- start_y_pos_sub_item + line_height
       }
 
@@ -273,14 +284,15 @@ gk_slide <- function(text, font_pct_size = 1) {
   slide <- template$obj
   start_y_pos <- template$coord$center_height - (length(text_lines) * 65 * font_pct_size / 2)
   for(i in 1:length(text_lines)) {
-    slide <- caption_template(
+    slide <- write_on_slide(
       slide,
-      caption = text_lines[i],
+      input_text = text_lines[i],
       x_pos = template$coord$width - margins$right,
       y_pos = start_y_pos + (i - 1) * 65 * font_pct_size,
       cex = 3.7 * font_pct_size,
-      font_family = "merriserif",
-      adj = c(1,0)
+      adj = c(1,0),
+      alpha = 1,
+      prose_family = "merriserif",
     )
   }
   slide
