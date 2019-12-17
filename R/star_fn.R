@@ -22,6 +22,7 @@ star_fn <- function(fn_name, pkg_name, top_caption = NULL, toolbox_type, highlig
   slide <- prepare_template(caption = NULL,
                             template_path = template_path)
 
+  fn_name <- stringr::str_remove(fn_name, "\\(\\)") %>% paste0("()")
   if(!is.null(highlight)) {
     highlighted_fn_name <- stringr::str_replace_all(fn_name,
                                                     stringr::str_glue("`{highlight}`") %>%
