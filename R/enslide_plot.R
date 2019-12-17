@@ -2,6 +2,12 @@ setup_fonts <- function() {
   sysfonts::font_paths(system.file("", package = "ntft"))
   sysfonts::font_add(family = "helveticaneue",
                      regular = "slidecaptionbold.ttf")
+  sysfonts::font_add(family = "firacode",
+                     regular = "FiraCode-Bold.ttf")
+  sysfonts::font_add(family = "kalam",
+                     regular = "Kalam-Bold.ttf")
+  sysfonts::font_add(family = "kelson",
+                     regular = "Kelson Sans Bold.otf")
   sysfonts::font_add(family = "merriserif",
                      regular = "Merriweather-Regular.ttf",
                      bold = "MerriweatherSans-ExtraBold.ttf",
