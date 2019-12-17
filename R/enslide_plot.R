@@ -15,7 +15,7 @@ setup_fonts <- function() {
 }
 
 
-prepare_template <- function(caption, template_path = "slide_template.png") {
+prepare_template <- function(caption = NULL, template_path = "slide_template.png") {
   slide <- magick::image_read(system.file(template_path, package = "ntft"))
 
   slide_coord <- list(
@@ -25,15 +25,20 @@ prepare_template <- function(caption, template_path = "slide_template.png") {
   slide_coord$center_width  <- slide_coord$width / 2
   slide_coord$center_height <- slide_coord$height / 2
 
-  caption_lines <- strsplit(caption, "\n")[[1]]
-  bottom_margin <- 100
-  line_height <- 55
-  for(i in 1:length(caption_lines)) {
-    y_pos_line <- slide_coord$height - bottom_margin - (line_height * (length(caption_lines) - i))
-    slide <- caption_template(slide,
-                              caption = caption_lines[i],
-                              x_pos = slide_coord$center_width,
-                              y_pos = y_pos_line)
+  if(!is.null(caption)) {
+    caption_lines <- strsplit(caption, "\n")[[1]]
+    if(identical(caption_lines, character(0))) {
+      caption_lines <- caption
+    }
+    bottom_margin <- 100
+    line_height <- 55
+    for(i in 1:length(caption_lines)) {
+      y_pos_line <- slide_coord$height - bottom_margin - (line_height * (length(caption_lines) - i))
+      slide <- caption_template(slide,
+                                caption = caption_lines[i],
+                                x_pos = slide_coord$center_width,
+                                y_pos = y_pos_line)
+    }
   }
 
   list(obj = slide,
@@ -277,7 +282,7 @@ gk_slide <- function(text, font_pct_size = 1) {
     bottom = 170,
     left = 115
   )
-  template <- prepare_template(caption = "",
+  template <- prepare_template(caption = NULL,
                                template_path = "slide_template_general_k.png")
 
   text_lines <- sapply(text, split_on_line_break)[[1]]
