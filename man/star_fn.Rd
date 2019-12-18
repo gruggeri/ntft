@@ -8,7 +8,7 @@ star_fn(
   fn_name,
   pkg_name,
   top_caption = NULL,
-  toolbox_type,
+  toolbox_type = c("shiny", "network", "timeseries", "cartography"),
   highlight = NULL,
   tweak_fn_size = 1
 )

@@ -8,7 +8,20 @@
 #' @export
 #'
 #' @examples
-star_fn <- function(fn_name, pkg_name, top_caption = NULL, toolbox_type, highlight = NULL, tweak_fn_size = 1) {
+star_fn <- function(fn_name,
+                    pkg_name,
+                    top_caption = NULL,
+                    toolbox_type = c("shiny", "network", "timeseries", "cartography"),
+                    highlight = NULL,
+                    tweak_fn_size = 1) {
+
+  template_path <- switch(match.arg(toolbox_type),
+                          shiny = "star_fn_shiny.png",
+                          network = "star_fn_network.png",
+                          timeseries = "star_fn_time_series.png",
+                          cartography = "star_fn_cartography.png"
+  )
+
   setup_fonts()
   margins <- list(
     top = 100,
@@ -17,8 +30,7 @@ star_fn <- function(fn_name, pkg_name, top_caption = NULL, toolbox_type, highlig
     left = 115
   )
 
-  template_path <- switch(toolbox_type,
-                          shiny = "star_fn_shiny.png")
+
   slide <- prepare_template(caption = NULL,
                             template_path = template_path)
 
