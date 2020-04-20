@@ -1,4 +1,4 @@
-## Install ntft
+## Install `{ntft}`
 
 ```r
 remotes::install_github("https://github.com/gruggeri/ntft")
