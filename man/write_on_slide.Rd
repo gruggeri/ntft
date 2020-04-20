@@ -4,24 +4,13 @@
 \alias{write_on_slide}
 \title{Title}
 \usage{
-write_on_slide(
-  slide,
-  input_text,
-  x_pos,
-  y_pos,
-  adj,
-  cex,
-  alpha,
-  prose_family,
-  prose_color = rgb(76, 76, 76, alpha = alpha * 255, maxColorValue = 255),
-  code_color = rgb(6, 58, 109, alpha = alpha * 255, maxColorValue = 255)
-)
+write_on_slide(slide, input_text, x_pos, y_pos, adj, cex, alpha,
+  prose_family, prose_color = rgb(76, 76, 76, alpha = alpha * 255,
+  maxColorValue = 255), code_color = rgb(6, 58, 109, alpha = alpha * 255,
+  maxColorValue = 255))
 }
 \arguments{
 \item{code_color}{}
-}
-\value{
-
 }
 \description{
 Title
