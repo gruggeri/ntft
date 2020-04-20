@@ -4,11 +4,19 @@
 \alias{enslide_list}
 \title{Generate a slide with a list of items}
 \usage{
-enslide_list(list, highlight, slide_caption, font_pct_size,
-  font_family = "merriserif")
+enslide_list(
+  list,
+  highlight,
+  slide_caption,
+  font_pct_size,
+  font_family = "merriserif"
+)
 }
 \arguments{
 \item{font_pct_size}{}
+}
+\value{
+
 }
 \description{
 Generate a slide with a list of items
