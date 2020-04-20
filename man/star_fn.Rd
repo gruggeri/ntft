@@ -4,12 +4,20 @@
 \alias{star_fn}
 \title{Title}
 \usage{
-star_fn(fn_name, pkg_name, top_caption = NULL,
+star_fn(
+  fn_name,
+  pkg_name,
+  top_caption = NULL,
   toolbox_type = c("shiny", "network", "timeseries", "cartography"),
-  highlight = NULL, tweak_fn_size = 1)
+  highlight = NULL,
+  tweak_fn_size = 1
+)
 }
 \arguments{
 \item{toolbox_type}{}
+}
+\value{
+
 }
 \description{
 Title

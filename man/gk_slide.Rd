@@ -9,6 +9,9 @@ gk_slide(text, font_pct_size = 1)
 \arguments{
 \item{font_pct_size}{}
 }
+\value{
+
+}
 \description{
 Generate a General Knowledge slide
 }
