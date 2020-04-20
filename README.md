@@ -64,5 +64,6 @@ mc_hammer(my_quiz = myquiz, quiz_id = "myid", quiz_type = "MultipleChoiceQuizz")
 <!--/html_preserve-->
 
 This will print the HTML code in the md file, even though you will not
-see it printed in the preview. You can now copy and paste the md file on
-the platform.
+see it printed in the preview (nor in github). 
+
+You can now copy and paste the md file on the platform.
