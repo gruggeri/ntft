@@ -41,8 +41,10 @@ all the other arguments (e.g. text, hint, is\_correct): they should all be
 in quotations.
 
 In order to change this, you can use the `shift + command + f`, and
-change these patters in all your files in the chosen directory. The
-reasons why we decided to go this way, is to be consistent with JSON
+change these patters in all your files in the **chosen directory**. 
+**Do it at subject level only, to avoid potential mistakes and git conflics.**
+
+The reasons why we decided to go this way, is to be consistent with JSON
 syntax. 
 
 > Consider this the new quiz template, from now on.
