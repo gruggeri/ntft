@@ -1,11 +1,12 @@
-## Install `{ntft}`
+## How to install `{ntft}`
 
 ```r
 remotes::install_github("https://github.com/gruggeri/ntft")
 ```
+
 ## How to use `mc_hammer()`
 
-As a first step, the quiz should look like the following.
+The quiz should look like the following:
 
 ``` r
 myquiz <- '
@@ -46,7 +47,8 @@ syntax.
 
 > Consider this the new quiz template, from now on.
 
-You can now use `mc_hammer()` function on your quizzes.
+
+We can now use `mc_hammer()` on your `myquiz`.
 
 > Beware that you need to imput your own `quiz_id`, which needs to be
 > unique, as it is saved in a platform database.
