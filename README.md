@@ -41,7 +41,7 @@ all the other arguments (e.g. text, hint, is\_correct): they should all be
 in quotations.
 
 In order to change this, you can use the `shift + command + f`, and
-change these patters in all your files in the **chosen directory**. 
+change these patterns in all your files in the **chosen directory**. 
 **Do it at subject level only, to avoid potential mistakes and git conflics.**
 
 The reasons why we decided to go this way, is to be consistent with JSON
@@ -49,6 +49,9 @@ syntax.
 
 > Consider this the new quiz template, from now on.
 
+Also note that we are now wrapping the entire quiz in single quote (`'`) to convert it to a long string that we save in a variable (here `myquiz`).
+We picked single quote because the JSON is already full of double quotes.
+If you need to use single quotes in the JSON (e.g. for writing contractions like `ain't`), remember to escape them with a backslash (i.e. `ain\'t`).
 
 We can now use `mc_hammer()` on your `myquiz`.
 
