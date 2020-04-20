@@ -7,7 +7,7 @@
 #'
 #' @examples
 preview_quiz <- function(my_quiz) {
-  qz_list <- jsonlite::fromJSON(qz)
+  qz_list <- jsonlite::fromJSON(my_quiz)
 
   qz_list$answers %>%
     dplyr::mutate(text = forcats::fct_inorder(text) %>% forcats::fct_rev()) %>%
