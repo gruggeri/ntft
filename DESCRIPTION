@@ -20,7 +20,8 @@ Imports:
     stringr,
     webshot,
     htmltools,
-    jsonlite
+    jsonlite,
+    ggplot2
 RoxygenNote: 7.1.0
 Suggests: 
     testthat (>= 2.1.0)
