@@ -1,5 +1,5 @@
 
-# Instructions for `mc_hammer()`
+# How to use `mc_hammer()`
 
 As a first step, the quiz should look like the following.
 
