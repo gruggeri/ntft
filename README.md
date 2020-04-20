@@ -1,5 +1,9 @@
+## Install ntft
 
-# How to use `mc_hammer()`
+```r
+remotes::install_github("https://github.com/gruggeri/ntft")
+```
+## How to use `mc_hammer()`
 
 As a first step, the quiz should look like the following.
 
