@@ -12,6 +12,17 @@ mc_hammer <- function(my_quiz, quiz_id, quiz_type = c("MultipleChoiceQuizz", "Si
 
   quiz_type <- match.arg(quiz_type)
 
+  my_quiz <-
+    my_quiz %>%
+    stringr::str_replace("question:", '"question":') %>%
+    stringr::str_replace("answers:", '"answers":') %>%
+    stringr::str_replace("success_message:", '"success_message":') %>%
+    stringr::str_replace_all("text:", '"text":') %>%
+    stringr::str_replace_all("hint:", '"hint":') %>%
+    stringr::str_replace_all("is_correct:", '"is_correct":') %>%
+    stringr::str_replace_all('“', '"') %>%
+    stringr::str_replace_all('”', '"')
+
   quiz_list_test <- jsonlite::fromJSON(my_quiz, simplifyDataFrame = FALSE)
 
   assertthat::assert_that(
