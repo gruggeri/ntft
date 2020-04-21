@@ -1,6 +1,6 @@
-#' Clean quotes in quiz for lazy people
+#' Putting quotes for lazy people
 #'
-#' @param my_quiz Quiz as a string in JSON format
+#' @param my_quiz Quiz as a string
 #'
 #' @return
 #' @export

@@ -7,10 +7,7 @@
 preview_quiz(my_quiz)
 }
 \arguments{
-\item{my_quiz}{Quiz as a string in JSON format}
-}
-\value{
-
+\item{my_quiz}{Quiz as a string}
 }
 \description{
 Include an image to preview the JSON quiz in markdown

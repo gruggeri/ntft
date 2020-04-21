@@ -4,11 +4,8 @@
 \alias{mc_hammer}
 \title{Convert JSON quiz to HTML}
 \usage{
-mc_hammer(
-  my_quiz,
-  quiz_id,
-  quiz_type = c("MultipleChoiceQuizz", "SingleChoiceQuizz")
-)
+mc_hammer(my_quiz, quiz_id, quiz_type = c("MultipleChoiceQuizz",
+  "SingleChoiceQuizz"))
 }
 \arguments{
 \item{my_quiz}{Quiz as a string in JSON format}
@@ -16,9 +13,6 @@ mc_hammer(
 \item{quiz_id}{Unique quiz id as a string}
 
 \item{quiz_type}{MultipleChoiceQuizz or SingleChoiceQuizz, as character value}
-}
-\value{
-
 }
 \description{
 Convert JSON quiz to HTML

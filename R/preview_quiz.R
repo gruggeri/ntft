@@ -1,6 +1,6 @@
 #' Include an image to preview the JSON quiz in markdown
 #'
-#' @param my_quiz Quiz as a string in JSON format
+#' @param my_quiz Quiz as a string
 #'
 #' @return
 #' @export
