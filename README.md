@@ -84,7 +84,7 @@ You can now copy and paste the md file on the platform.
 
 ## use `preview_quiz()` to visualize the quiz on Github and the preview
 
-```
+``` r
 preview_quiz(my_quiz = myquiz)
 ```
 
@@ -96,7 +96,7 @@ I would suggest you to use it only until the soft launch, and then use the new q
 
 ### Example
 
-```
+``` r
 
 myquiz <- ' {
 question: "Which function do we usually use to load shapes?",
@@ -131,6 +131,7 @@ myquoted_quiz <- mc_lazy_quotes(myquiz)
 mc_hammer(my_quiz= myquoted_quiz, quiz_id = "myid", quiz_type = "MultipleChoiceQuizz")
 
 # this creates the preview 
+
 preview_quiz(myquoted_quiz)
 
 
