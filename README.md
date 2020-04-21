@@ -90,7 +90,7 @@ preview_quiz(my_quiz = myquiz)
 
 ## If you are lazy, use `mc_lazy_quotes()`
 
-The function `mc_lazy_quotes()` helps you not having to use `shift + command + f` to find a replace the patterns, it will also get rid of smart quotes.
+The function `mc_lazy_quotes()` helps you not having to use <kbd>shift + command + f</kbd> to find a replace the patterns, it will also get rid of smart quotes.
 I would suggest you to use it only until the soft launch, and then use the new quiz template from the beginning.
 
 
