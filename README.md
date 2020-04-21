@@ -80,3 +80,61 @@ This will print the HTML code in the md file, even though you will not
 see it printed in the preview (nor in github). 
 
 You can now copy and paste the md file on the platform.
+
+
+## use `preview_quiz()` to visualize the quiz on Github and the preview
+
+```
+preview_quiz(my_quiz = myquiz)
+```
+
+## If you are lazy, use `mc_lazy_quotes()`
+
+The function `mc_lazy_quotes()` helps you not having to use `shift + command + f` to find a replace the patterns, it will also get rid of smart quotes.
+I would suggest you to use it only until the soft launch, and then use the new quiz template from the beginning.
+
+
+### Example
+
+```
+
+myquiz <- ' {
+question: "Which function do we usually use to load shapes?",
+answers: [
+{text: "`read_st()`",
+hint: "",
+is_correct: false},
+{text: "`read_csv()`",
+hint: "Nope. Usually shapes are not stored into .csv files, although this might happen sometimes.",
+is_correct: false},
+{text: "`st_read()`",
+hint: "Bravo.",
+is_correct: true},
+{text: "`st_read_csv()`",
+hint: "Nope.",
+is_correct: false},
+{text: "`raster()`",
+hint: "Nope. This function is used to load rasters, not shapes.",
+is_correct: false}
+],
+success_message: "Good job!"
+}
+
+'
+
+# this replaces the find shift+command+F
+
+myquoted_quiz <- mc_lazy_quotes(myquiz)
+
+# this exports the quiz to HTML
+
+mc_hammer(my_quiz= myquoted_quiz, quiz_id = "myid", quiz_type = "MultipleChoiceQuizz")
+
+# this creates the preview 
+preview_quiz(myquoted_quiz)
+
+
+```
+
+
+
