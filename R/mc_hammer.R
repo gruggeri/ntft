@@ -8,7 +8,11 @@
 #' @export
 #'
 #' @examples
-mc_hammer <- function(my_quiz, quiz_id, quiz_type = c("MultipleChoiceQuizz", "SingleChoiceQuizz")) {
+mc_hammer <- function(
+  my_quiz,
+  quiz_id = paste0(Sys.info()[8], "_", as.numeric(Sys.time())),
+  quiz_type = c("MultipleChoiceQuizz", "SingleChoiceQuizz")
+  ) {
 
   quiz_type <- match.arg(quiz_type)
 
