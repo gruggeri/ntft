@@ -6,6 +6,8 @@ remotes::install_github("https://github.com/gruggeri/ntft")
 
 ## How to use `mc_hammer()`
 
+![](https://media.giphy.com/media/ZDhPlli6gMh44/giphy.gif)
+
 The quiz should look like the following:
 
 ``` r
