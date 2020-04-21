@@ -42,7 +42,7 @@ The difference with the previous version is that, for instance.
 all the other arguments (e.g. text, hint, is\_correct): they should all be
 in quotations.
 
-In order to change this, you can use the `shift + command + f`, and
+In order to change this, you can use the <kbd>shift + command + f</kbd>, and
 change these patterns in all your files in the **chosen directory**. 
 **Do it at subject level only, to avoid potential mistakes and git conflics.**
 
