@@ -12,6 +12,8 @@ mc_hammer <- function(my_quiz, quiz_id, quiz_type = c("MultipleChoiceQuizz", "Si
 
   quiz_type <- match.arg(quiz_type)
 
+  my_quiz <- stringr::str_squish(my_quiz)
+
   quiz_list_test <- jsonlite::fromJSON(my_quiz, simplifyDataFrame = FALSE)
 
   assertthat::assert_that(
