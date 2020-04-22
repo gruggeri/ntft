@@ -42,7 +42,7 @@ The difference with the previous version is that, for instance.
 all the other arguments (e.g. text, hint, is\_correct): they should all be
 in quotations.
 
-In order to change this, you can use the `shift + command + f`, and
+In order to change this, you can use the <kbd>shift + command + f</kbd>, and
 change these patterns in all your files in the **chosen directory**. 
 **Do it at subject level only, to avoid potential mistakes and git conflics.**
 
@@ -90,7 +90,7 @@ preview_quiz(my_quiz = myquiz)
 
 ## If you are lazy, use `mc_lazy_quotes()`
 
-The function `mc_lazy_quotes()` helps you not having to use `shift + command + f` to find a replace the patterns, it will also get rid of smart quotes.
+The function `mc_lazy_quotes()` helps you not having to use <kbd>shift + command + f</kbd> to find a replace the patterns, it will also get rid of smart quotes.
 I would suggest you to use it only until the soft launch, and then use the new quiz template from the beginning.
 
 
