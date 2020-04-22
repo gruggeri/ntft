@@ -1,9 +1,12 @@
 Package: ntft
 Type: Package
 Title: Ain't nobody got time for that
-Version: 0.4.0
-Author: Xavier Adam
-Maintainer: Xavier Adam <xavier.adam@pm.me>
+Version: 0.5.0
+Authors@R: as.person(c(
+    "Xavier Adam <xavier.adam@pm.me> [aut, cre]", 
+    "Giulia Ruggeri <giulia.ruggeri@epfl.ch> [aut]",
+    "Bobby Stuijfzand <bobby.stuijfzand@epfl.ch> [aut]"
+  ))
 Description: Helpers to save time in course production.
 License: MIT + file LICENSE
 Encoding: UTF-8
