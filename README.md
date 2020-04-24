@@ -81,7 +81,7 @@ see it printed in the preview (nor in github).
 You can now copy and paste the md file on the platform.
 
 
-## use `preview_quiz()` to visualize the quiz on Github and the preview
+## Use `preview_quiz()` to visualize the quiz on Github and the preview
 
 ``` r
 preview_quiz(my_quiz = myquiz)
@@ -143,6 +143,8 @@ preview_quiz(myquoted_quiz)
 The best solution to make new quizzes, from now on, is to actually use R list.
 When you create lists, you can use `mc_hammer_list()`
 In order to ease the process you can add to your RStudio the following snippets:
+
+> In order to render the snippets here I had to separate them in 2 (e.g snippet qzsingle and the other code, but it should be pasted all together to create the snippets)
 
 ```
 snippet qzsingle
