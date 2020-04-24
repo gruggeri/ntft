@@ -148,7 +148,6 @@ In order to ease the process you can add to your RStudio the following snippets:
 
 ```
 snippet qzsingle
-```
 	```{r echo = FALSE, results = "asis"}
 	quiz <- list(
 	    question = "<<Enter Question>>",
@@ -172,10 +171,10 @@ snippet qzsingle
 
 	ntft::preview_quiz_list(quiz)
 	```
-
-```	
-snippet qzmulti
 ```
+
+```
+snippet qzmulti
 	```{r echo = FALSE, results = "asis"}
 	quiz <- list(
 	    question = "<<Enter Question>>",
@@ -199,6 +198,7 @@ snippet qzmulti
 
 	ntft::preview_quiz_list(quiz)
 	```
+```
 
 
 
