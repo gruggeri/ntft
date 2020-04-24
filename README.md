@@ -49,7 +49,6 @@ change these patterns in all your files in the **chosen directory**.
 The reasons why we decided to go this way, is to be consistent with JSON
 syntax. 
 
-> Consider this the new quiz template, from now on.
 
 Also note that we are now wrapping the entire quiz in single quote (`'`) to convert it to a long string that we save in a variable (here `myquiz`).
 We picked single quote because the JSON is already full of double quotes.
@@ -138,3 +137,71 @@ preview_quiz(myquoted_quiz)
 ```
 
 
+
+## Instructions to make new quizzes
+
+The best solution to make new quizzes, from now on, is to actually use R list.
+When you create lists, you can use `mc_hammer_list()`
+In order to ease the process you can add to your RStudio the following snippets:
+
+```
+snippet qzsingle
+```
+	```{r echo = FALSE, results = "asis"}
+	quiz <- list(
+	    question = "<<Enter Question>>",
+	    answers = list(
+	         list(text = "Hint 1 ",
+	              hint = "<<Enter Hint>>",
+	              is_correct = FALSE),
+	         list(text = "Hint 2",
+	              hint = "<<Enter Hint>>",
+	              is_correct = FALSE),
+	         list(text = "Solution",
+	              hint = "<<Enter Hint>>",
+	              is_correct = TRUE)
+	  ),
+	    success_message = "<<Enter Success Message>"
+	)
+	
+	ntft::mc_hammer_list(my_quiz = quiz,
+									     quiz_id = "`r uuid::UUIDgenerate()`",
+									     quiz_type = "SingleChoiceQuizz")
+
+	ntft::preview_quiz_list(quiz)
+	```
+
+```	
+snippet qzmulti
+```
+	```{r echo = FALSE, results = "asis"}
+	quiz <- list(
+	    question = "<<Enter Question>>",
+	    answers = list(
+	         list(text = "<<Enter answer>>",
+	              hint = "<<Enter Hint>>",
+	              is_correct = FALSE),
+	         list(text = "<<Enter answer>>",
+	              hint = "<<Enter Hint>>",
+	              is_correct = FALSE),
+	         list(text = "<<Enter answer>>",
+	              hint = "<<Enter Hint>>",
+	              is_correct = TRUE)
+	  ),
+	    success_message = "<<Enter Success Message>>"
+	)
+	
+	ntft::mc_hammer_list(my_quiz = quiz,
+									     quiz_id = "`r uuid::UUIDgenerate()`",
+									     quiz_type = "MultipleChoiceQuizz")
+
+	ntft::preview_quiz_list(quiz)
+	```
+
+	
+In order to add these snippets going to <kbd>RStudio preferences -> code -> enable code snippets ->Edit Snippets -> chose Markdown snippets (on the left)</kbd> -> paste there your snippets
+
+![](inst/snippets.png)
+	
+	
+	
