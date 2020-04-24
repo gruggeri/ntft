@@ -9,6 +9,7 @@
 preview_quiz_list <- function(my_quiz) {
 
   my_quiz$answers %>%
+    purrr::map_dfr( dplyr::bind_rows) %>%
     dplyr::mutate(text = forcats::fct_inorder(text) %>% forcats::fct_rev()) %>%
     ggplot2::ggplot(ggplot2::aes(x = 1, y = text)) +
     ggplot2::geom_label(ggplot2::aes(label = text, fill = is_correct), alpha = 0.6) +
