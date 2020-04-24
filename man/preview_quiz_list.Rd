@@ -7,7 +7,7 @@
 preview_quiz_list(my_quiz)
 }
 \arguments{
-\item{my_quiz}{Quiz as a string}
+\item{my_quiz}{Quiz as list}
 }
 \description{
 Include an image to preview quiz

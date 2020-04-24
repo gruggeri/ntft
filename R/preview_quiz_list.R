@@ -1,6 +1,6 @@
 #' Include an image to preview quiz
 #'
-#' @param my_quiz Quiz as a string
+#' @param my_quiz Quiz as list
 #'
 #' @return
 #' @export
