@@ -165,8 +165,8 @@ snippet qzsingle
 	)
 	
 	ntft::mc_hammer_list(my_quiz = quiz,
-									     quiz_id = "`r uuid::UUIDgenerate()`",
-									     quiz_type = "SingleChoiceQuizz")
+			     quiz_id = "`r uuid::UUIDgenerate()`",
+			     quiz_type = "SingleChoiceQuizz")
 
 	ntft::preview_quiz_list(quiz)
 	```
@@ -192,13 +192,14 @@ snippet qzmulti
 	)
 	
 	ntft::mc_hammer_list(my_quiz = quiz,
-									     quiz_id = "`r uuid::UUIDgenerate()`",
-									     quiz_type = "MultipleChoiceQuizz")
+		             quiz_id = "`r uuid::UUIDgenerate()`",
+			     quiz_type = "MultipleChoiceQuizz")
 
 	ntft::preview_quiz_list(quiz)
 	```
 
-	
+
+
 In order to add these snippets going to <kbd>RStudio preferences -> code -> enable code snippets ->Edit Snippets -> chose Markdown snippets (on the left)</kbd> -> paste there your snippets
 
 ![](inst/snippets.png)
