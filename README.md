@@ -160,10 +160,10 @@ snippet qzsingle
 	              hint = "<<Enter Hint>>",
 	              is_correct = FALSE),
 	         list(text = "Solution",
-	              hint = "<<Enter Hint>>",
+	              hint = "<<Enter Solution>>",
 	              is_correct = TRUE)
 	  ),
-	    success_message = "<<Enter Success Message>"
+	    success_message = "<<Enter Success Message>>"
 	)
 	
 	ntft::mc_hammer_list(my_quiz = quiz,
@@ -209,4 +209,10 @@ In order to add these snippets going to <kbd>RStudio preferences -> code -> enab
 	
 In order to use this snippets, you can write in the Rmd file, either `qzsingle` or `qzmulti` and press <kbd>shift+tab</kbd>.
 This will automatically generate the code chunk for you.
+
+Note that you can also change the snippets to your liking:
+
+- If your success message is "Well done!" more often than not, put that instead of "<<Enter Success Message>>" and you will save a bit of time on each quiz.
+- If most of your multichoice quiz don't have hints, replace the "<<Enter Hint>>" with an empty string at the template level ""
+- and so on...
 	
