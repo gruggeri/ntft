@@ -207,6 +207,6 @@ In order to add these snippets going to <kbd>RStudio preferences -> code -> enab
 ![](inst/snippets.png)
 	
 	
-to use this snippets, you can write in the Rmd file, either `qzsingle` or `qzmulti` and press <kbd>shift+tab</kbd>.
+In order to use this snippets, you can write in the Rmd file, either `qzsingle` or `qzmulti` and press <kbd>shift+tab</kbd>.
 This will automatically generate the code chunk for you.
 	
