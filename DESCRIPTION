@@ -26,7 +26,11 @@ Imports:
     jsonlite,
     ggplot2,
     ggraph,
-    dplyr
+    dplyr, 
+    forcats,
+    tidyr,
+    assertthat,
+    rlang
 RoxygenNote: 7.1.0
 Suggests: 
     testthat (>= 2.1.0)
