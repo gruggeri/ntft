@@ -209,4 +209,51 @@ In order to add these snippets going to <kbd>RStudio preferences -> code -> enab
 	
 In order to use this snippets, you can write in the Rmd file, either `qzsingle` or `qzmulti` and press <kbd>shift+tab</kbd>.
 This will automatically generate the code chunk for you.
+
+## Making illustrations, example code
+
+
+``` r
+library(tidyverse)
+library(ntft)
+```
+
+Set the following chunk to `eval = FALSE`.
+
+``` r
+cars %>% 
+  ggplot(aes(x = speed, y = dist))+
+  geom_point()
+```
+
+In the unit, set the following chunk to `echo = FALSE`.
+
+``` r
+p <- cars %>% 
+  ggplot(aes(x = speed, y = dist))+
+  geom_point()
+
+enslide_plot(p, slide_caption = "this is my plot")
+```
+
+
+
+``` r
+gk_slide(text = "have fun")
+```
+
+
+``` r
+ntft::star_fn(
+  fn_name = "slideInput", 
+  pkg_name = "shiny", 
+  toolbox_type = "shiny", 
+  top_caption = "New ui function", 
+  highlight = "Input")
+```
+
+
+
+
+
 	
