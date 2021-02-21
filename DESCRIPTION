@@ -24,7 +24,14 @@ Imports:
     webshot,
     htmltools,
     jsonlite,
-    ggplot2
+    ggplot2,
+    ggraph,
+    dplyr, 
+    forcats,
+    tidyr,
+    assertthat,
+    rlang, 
+    uuid
 RoxygenNote: 7.1.0
 Suggests: 
     testthat (>= 2.1.0)
